@@ -1,0 +1,482 @@
+basePath: /api/v1
+definitions:
+  controllers.Customer:
+    properties:
+      age:
+        type: integer
+      customertype:
+        type: integer
+      email:
+        type: string
+      gender:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      title:
+        type: integer
+      username:
+        type: string
+    type: object
+  ent.Customer:
+    properties:
+      AGE:
+        description: AGE holds the value of the "AGE" field.
+        type: integer
+      EMAIL:
+        description: EMAIL holds the value of the "EMAIL" field.
+        type: string
+      NAME:
+        description: NAME holds the value of the "NAME" field.
+        type: string
+      PASSWORD:
+        description: PASSWORD holds the value of the "PASSWORD" field.
+        type: string
+      USERNAME:
+        description: USERNAME holds the value of the "USERNAME" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.CustomerEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the CustomerQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.CustomerEdges:
+    properties:
+      customertype:
+        $ref: '#/definitions/ent.Customertype'
+        description: Customertype holds the value of the customertype edge.
+        type: object
+      gender:
+        $ref: '#/definitions/ent.Gender'
+        description: Gender holds the value of the gender edge.
+        type: object
+      title:
+        $ref: '#/definitions/ent.Title'
+        description: Title holds the value of the title edge.
+        type: object
+    type: object
+  ent.Customertype:
+    properties:
+      CUSTOMERTYPE:
+        description: CUSTOMERTYPE holds the value of the "CUSTOMERTYPE" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.CustomertypeEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the CustomertypeQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.CustomertypeEdges:
+    properties:
+      customer3:
+        description: Customer3 holds the value of the customer3 edge.
+        items:
+          $ref: '#/definitions/ent.Customer'
+        type: array
+    type: object
+  ent.Gender:
+    properties:
+      GENDER:
+        description: GENDER holds the value of the "GENDER" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.GenderEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the GenderQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.GenderEdges:
+    properties:
+      customer2:
+        description: Customer2 holds the value of the customer2 edge.
+        items:
+          $ref: '#/definitions/ent.Customer'
+        type: array
+    type: object
+  ent.Title:
+    properties:
+      TITLETYPE:
+        description: TITLETYPE holds the value of the "TITLETYPE" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.TitleEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the TitleQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.TitleEdges:
+    properties:
+      customer4:
+        description: Customer4 holds the value of the customer4 edge.
+        items:
+          $ref: '#/definitions/ent.Customer'
+        type: array
+    type: object
+  gin.H:
+    additionalProperties: true
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server for SUT SE 2563
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: SUT SA Example API Patient
+  version: "1.0"
+paths:
+  /customers:
+    post:
+      consumes:
+      - application/json
+      description: Create customer
+      operationId: create-customer
+      parameters:
+      - description: customer entity
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.Customer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Customer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create customer
+  /customertypes:
+    get:
+      description: list customertype entities
+      operationId: list-customertype
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Customertype'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List customertype entities
+    post:
+      consumes:
+      - application/json
+      description: Create customertype
+      operationId: create-customertype
+      parameters:
+      - description: Customertype entity
+        in: body
+        name: customertype
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Customertype'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Customertype'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create customertype
+  /customertypes/{id}:
+    get:
+      description: get customertype by ID
+      operationId: get-customertype
+      parameters:
+      - description: Customertype ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Customertype'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a customertype entity by ID
+  /genders:
+    get:
+      description: list gender entities
+      operationId: list-gender
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Gender'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List gender entities
+    post:
+      consumes:
+      - application/json
+      description: Create gender
+      operationId: create-gender
+      parameters:
+      - description: Gender entity
+        in: body
+        name: gender
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Gender'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Gender'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create gender
+  /genders/{id}:
+    get:
+      description: get gender by ID
+      operationId: get-gender
+      parameters:
+      - description: Gender ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Gender'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a gender entity by ID
+  /titles:
+    get:
+      description: list title entities
+      operationId: list-title
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Title'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List title entities
+    post:
+      consumes:
+      - application/json
+      description: Create title
+      operationId: create-title
+      parameters:
+      - description: Title entity
+        in: body
+        name: title
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Title'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Title'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create title
+  /titles/{id}:
+    get:
+      description: get title by ID
+      operationId: get-title
+      parameters:
+      - description: Title ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Title'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a title entity by ID
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+  BasicAuth:
+    type: basic
+  OAuth2AccessCode:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: accessCode
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Application:
+    flow: application
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      write: ' Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Implicit:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: implicit
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      write: ' Grants write access'
+    type: oauth2
+  OAuth2Password:
+    flow: password
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      read: ' Grants read access'
+      write: ' Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+swagger: "2.0"
