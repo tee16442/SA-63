@@ -1,0 +1,731 @@
+basePath: /api/v1
+definitions:
+  ent.Adult:
+    properties:
+      Amount:
+        description: Amount holds the value of the "Amount" field.
+        type: integer
+      edges:
+        $ref: '#/definitions/ent.AdultEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the AdultQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.AdultEdges:
+    properties:
+      books:
+        description: Books holds the value of the books edge.
+        items:
+          $ref: '#/definitions/ent.Books'
+        type: array
+    type: object
+  ent.Adults:
+    items:
+      $ref: '#/definitions/ent.Adult'
+    type: array
+  ent.Books:
+    properties:
+      Checkin:
+        description: Checkin holds the value of the "Checkin" field.
+        type: string
+      Checkout:
+        description: Checkout holds the value of the "Checkout" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.BooksEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the BooksQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.BooksEdges:
+    properties:
+      adult:
+        $ref: '#/definitions/ent.Adult'
+        description: Adult holds the value of the adult edge.
+        type: object
+      customer:
+        $ref: '#/definitions/ent.Customer'
+        description: Customer holds the value of the customer edge.
+        type: object
+      kid:
+        $ref: '#/definitions/ent.Kid'
+        description: Kid holds the value of the kid edge.
+        type: object
+      room:
+        $ref: '#/definitions/ent.Room'
+        description: Room holds the value of the room edge.
+        type: object
+      roomamount:
+        $ref: '#/definitions/ent.Roomamount'
+        description: Roomamount holds the value of the roomamount edge.
+        type: object
+    type: object
+  ent.Customer:
+    properties:
+      Email:
+        description: Email holds the value of the "Email" field.
+        type: string
+      Username:
+        description: Username holds the value of the "Username" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.CustomerEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the CustomerQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.CustomerEdges:
+    properties:
+      books:
+        description: Books holds the value of the books edge.
+        items:
+          $ref: '#/definitions/ent.Books'
+        type: array
+    type: object
+  ent.Customers:
+    items:
+      $ref: '#/definitions/ent.Customer'
+    type: array
+  ent.Kid:
+    properties:
+      Amount:
+        description: Amount holds the value of the "Amount" field.
+        type: integer
+      edges:
+        $ref: '#/definitions/ent.KidEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the KidQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.KidEdges:
+    properties:
+      books:
+        description: Books holds the value of the books edge.
+        items:
+          $ref: '#/definitions/ent.Books'
+        type: array
+    type: object
+  ent.Kids:
+    items:
+      $ref: '#/definitions/ent.Kid'
+    type: array
+  ent.Room:
+    properties:
+      Roomtype:
+        description: Roomtype holds the value of the "Roomtype" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.RoomEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the RoomQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.RoomEdges:
+    properties:
+      books:
+        description: Books holds the value of the books edge.
+        items:
+          $ref: '#/definitions/ent.Books'
+        type: array
+    type: object
+  ent.Roomamount:
+    properties:
+      Amount:
+        description: Amount holds the value of the "Amount" field.
+        type: integer
+      edges:
+        $ref: '#/definitions/ent.RoomamountEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the RoomamountQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.RoomamountEdges:
+    properties:
+      books:
+        description: Books holds the value of the books edge.
+        items:
+          $ref: '#/definitions/ent.Books'
+        type: array
+    type: object
+  gin.H:
+    additionalProperties: true
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server for SUT SE 2563
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: SUT SA Example API Patient
+  version: "1.0"
+paths:
+  /adults:
+    get:
+      description: list adult entities
+      operationId: list-adult
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Adult'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List adult entities
+    post:
+      consumes:
+      - application/json
+      description: Create adult
+      operationId: create-adult
+      parameters:
+      - description: Adult entity
+        in: body
+        name: adult
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Adults'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Adult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create adult
+  /adults/{id}:
+    get:
+      description: get adults by ID
+      operationId: get-Adult
+      parameters:
+      - description: Adult ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Adult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a adult entity by ID
+  /bookss:
+    get:
+      description: list books entities
+      operationId: list-books
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Books'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List books entities
+    post:
+      consumes:
+      - application/json
+      description: Create books
+      operationId: create-books
+      parameters:
+      - description: Books entity
+        in: body
+        name: books
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Books'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Books'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create books
+  /customers:
+    get:
+      description: list customer entities
+      operationId: list-customer
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Customer'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List customer entities
+    post:
+      consumes:
+      - application/json
+      description: Create customer
+      operationId: create-customer
+      parameters:
+      - description: Customer entity
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Customers'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Customer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create customer
+  /customers/{id}:
+    get:
+      description: get customers by ID
+      operationId: get-Customer
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Customer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a customer entity by ID
+  /kids:
+    get:
+      description: list kid entities
+      operationId: list-kid
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Kid'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List kid entities
+    post:
+      consumes:
+      - application/json
+      description: Create kid
+      operationId: create-kid
+      parameters:
+      - description: Kid entity
+        in: body
+        name: kid
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Kids'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Kid'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create kid
+  /kids/{id}:
+    get:
+      description: get kids by ID
+      operationId: get-Kid
+      parameters:
+      - description: Kid ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Kid'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a kid entity by ID
+  /roomamounts:
+    get:
+      description: list roomamount entities
+      operationId: list-roomamount
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Roomamount'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List roomamount entities
+    post:
+      consumes:
+      - application/json
+      description: Create roomamount
+      operationId: create-roomamount
+      parameters:
+      - description: Roomamount entity
+        in: body
+        name: roomamount
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Roomamount'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Roomamount'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create roomamount
+  /roomamounts/{id}:
+    get:
+      description: get roomamounts by ID
+      operationId: get-RoomAmount
+      parameters:
+      - description: Roomamount ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Roomamount'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a roomamount entity by ID
+  /rooms:
+    get:
+      description: list room entities
+      operationId: list-room
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Room'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List room entities
+    post:
+      consumes:
+      - application/json
+      description: Create room
+      operationId: create-room
+      parameters:
+      - description: Room entity
+        in: body
+        name: room
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Room'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Room'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create room
+  /rooms/{id}:
+    get:
+      description: get rooms by ID
+      operationId: get-room
+      parameters:
+      - description: Room ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Room'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a room entity by ID
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+  BasicAuth:
+    type: basic
+  OAuth2AccessCode:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: accessCode
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Application:
+    flow: application
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      write: ' Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Implicit:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: implicit
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      write: ' Grants write access'
+    type: oauth2
+  OAuth2Password:
+    flow: password
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      read: ' Grants read access'
+      write: ' Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+swagger: "2.0"
